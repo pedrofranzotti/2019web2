@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="resources/js/jquery-3.4.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
+    </head>
+    <body>
+        <form>
+            <div id="formulario" class="form-group">
+                
+            <label id="labelNome" for="label"> Nome: </label>
+            
+            <input id="inputNome" type="text" id="nome" required/>
+            </div>
+            <button id="salvar" class="btn btn-primary" type="submit">Enviar</button>
+                
+                
+        </form>
+        
+        <script> 
+            $(document).ready(
+                    function(){
+                        $('#inputNome').on("click",
+                            function(){
+                                $("#labelNome").css('background-color','#00FF00');
+                                $("#formulario").css('padding:120px');
+                            }
+                        );
+                    });
+        
+        </script>
+    </body>
+</html>

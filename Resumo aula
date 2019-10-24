@@ -1,0 +1,22 @@
+TrÊs arquivos
+jdk-8u221-linux-x64.tar.gz
+glassfish-5.1.0.zip  
+netbeans-11.1-bin.zip
+Extrai tudo.
+
+Abre netbeans via pasta /bin
+No netbeans Tools=> Java Plataform, adiciona o jdk 1.8 baixado inicialmente.
+No netbeans Tools=> Server, adiciona o glassfish utilizando a pasta baixada inicialmente.
+Criar o projeto Java with Ant => Java WEB => Web Application
+
+var A = function soma(a,b)=> a+b;
+
+c = new A;
+A.prototype.ola()=> "Ola";
+
+c.ola(); //isso funciona
+
+var obj = {nome : "João", idade "21"};
+consolelog(obj.nome);
+
+
