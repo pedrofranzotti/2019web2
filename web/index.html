@@ -13,29 +13,46 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css">
     </head>
     <body>
-        <form>
+        <form method="POST" action="hello.jsp">
             <div id="formulario" class="form-group">
-                
-            <label id="labelNome" for="label"> Nome: </label>
-            
-            <input id="inputNome" type="text" id="nome" required/>
+                <label id="labelNome" for="label"> Nome: </label>
+                <input class="form-control" name="nome" type="text" required/>
             </div>
+            
+            <div id="formulario" class="form-group">
+                <label id="labelCPF" for="label"> CPF: </label>
+                <input class="form-control" name="cpf" type="text" required/>
+            </div>
+            <!--
+            <div id="formulario" class="form-group">
+                <label id="labelDataNascimento" for="label"> Data de Nascimento: </label>
+                <input class="form-control" name="dataNascimento" type="text" required/>
+            </div>
+            
+            <div id="formulario" class="form-group">
+                <label id="labelTelefone" for="label"> Telefone: </label>
+                <input class="form-control" name="telefone" type="text" required/>
+            </div>
+            
+            <div id="formulario" class="form-group">
+                <label id="labelEmail" for="label"> E-mail: </label>
+                <input class="form-control" name="email" type="text" required/>
+            </div>
+            
+            <div id="formulario" class="form-group">
+                <label id="labelEndereço" for="label"> Endereço: </label>
+                <input class="form-control" name="endereco" type="text" required/>
+            </div>
+            
+            <div id="formulario" class="form-group">
+                <label id="labelGenero" for="label"> Genero: </label>
+                <input class="form-control" name="genero" type="text" required/>
+            </div>
+            -->
             <button id="salvar" class="btn btn-primary" type="submit">Enviar</button>
                 
                 
         </form>
-        
-        <script> 
-            $(document).ready(
-                    function(){
-                        $('#inputNome').on("click",
-                            function(){
-                                $("#labelNome").css('background-color','#00FF00');
-                                $("#formulario").css('padding:120px');
-                            }
-                        );
-                    });
-        
-        </script>
+
     </body>
 </html>
