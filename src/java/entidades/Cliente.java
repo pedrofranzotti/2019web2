@@ -6,27 +6,40 @@
 package entidades;
 
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
  * @author aluno
  */
+@Entity 
+@Table(name="cliente") // Nome da tabela no banco de dados
+@SequenceGenerator(name="seq_cliente", sequenceName="cliente_id_seq", allocationSize=1)
+// o nem é no escopo do java
+// cliente_id_seq pega com comando no postgres \d cliente
+// allocationSize=1 tamanho do passo dentro do incremento
 public class Cliente {
-    
+    @Id
+    @Column(name="id")//Não obrigatório se o nome da variável foi o nome da coluna.
+    @GeneratedValue(generator="seq_cliente", strategy = GenerationType.SEQUENCE)
     private int id;
+    @Column(name="descricao")
     private String nome;
     private String cpf;
-    private Date dataNascimento;
+    @Column(name="telefoneo")
     private String telefone;
-    private String email;
-    private String endereco;
-    private String genero;
     
-    public int getIn() {
+    public int getId() {
         return id;
     }
 
-    public void setIn(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -46,15 +59,7 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getTelefone() {
+        public String getTelefone() {
         return telefone;
     }
 
@@ -62,29 +67,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+    
 
     
     

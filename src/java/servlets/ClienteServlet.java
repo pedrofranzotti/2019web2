@@ -1,5 +1,7 @@
 package servlets;
 
+import dao.ClienteDAO;
+import dao.ClienteDAOImpl;
 import entidades.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,51 +23,28 @@ public class ClienteServlet extends HttpServlet {
             throws ServletException, IOException {
         
         Cliente c = new Cliente();
-        c.setNome(request.getParameter("nome"));
-        c.setCpf(request.getParameter("cpf"));
+        ClienteDAO dao = new ClienteDAOImpl();
         
-        try{
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            c.setDataNascimento(sdf.parse(request.getParameter("dataNascimento")));
-        }catch(Exception e){
+        if(request.getParameter("nome")!= null){
+            int id = Integer.parseInt(request.getParameter("id"));
+            c.setId(id);
+            c.setNome(request.getParameter("nome"));
+            c.setCpf(request.getParameter("cpf"));
+            c.setTelefone(request.getParameter("telefone"));
+            dao.save(c);
+        } else if(request.getParameter("excluir")!= null){
+            int id = Integer.parseInt(request.getParameter("excluir"));
+            dao.delete(dao.find(id));
+        } else if(request.getParameter("editar")!= null){
+            int id = Integer.parseInt(request.getParameter("editar"));
+            request.setAttribute("cliente", dao.find(id));
         }
         
-        c.setTelefone(request.getParameter("telefone"));
-        c.setEmail(request.getParameter("email")); 
-        c.setEndereco(request.getParameter("endereco"));
-        c.setGenero(request.getParameter("genero"));
+        request.setAttribute("lista", dao.list());
         
+        RequestDispatcher view = request.getRequestDispatcher("cliente.jsp");
+        view.forward(request, response);
         
-        
-        
-        
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ClienteServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Nome: " +      c.getNome() + "</h1>");
-            out.println("<h1>CPF: " +       c.getCpf() + "</h1>");
-            out.println("<h1>Data Nascimento " + c.getDataNascimento() + "</h1>");
-            out.println("<h1>Telefone " +   c.getTelefone() + "</h1>");
-            out.println("<h1>Email " +      c.getEmail() + "</h1>");
-            out.println("<h1>Endereço " +   c.getEndereco() + "</h1>");
-            out.println("<h1>Genero " +     c.getGenero() + "</h1>");
-            
-            out.println("</body>");
-            out.println("</html>");
-        }
-        
-        List <Cliente> lista = (List <Cliente>) request.getSession().getAttribute("lista");
-        if(lista == null){
-            lista = new ArrayList<Cliente>();
-        }
-        lista.add(c);
-        request.getSession().setAttribute("lista",lista);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

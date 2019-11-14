@@ -60,7 +60,7 @@
                     <tr>
                         <td><%= t.getDescricao() %></td>
                         <td>
-                            <a href="tarefa.jsp?excluir=<%= t.getID() %>"><button class="btn btn-danger">Excluir</button>
+                            <a href="tarefa.jsp?excluir=<%=t.getId()%>"><button class="btn btn-danger">Excluir</button>
                         </a>
                         </td>
                     </tr>

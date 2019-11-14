@@ -36,7 +36,7 @@ public class TarefaDAOImpl implements TarefaDAO{
         em.getTransaction().begin();
      
         if(!em.contains(tarefa)){
-            em.refresh(tarefa);
+            tarefa = em.merge(tarefa);
         }
         
         em.remove(tarefa);

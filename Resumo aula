@@ -20,3 +20,5 @@ var obj = {nome : "João", idade "21"};
 consolelog(obj.nome);
 
 
+ORM: JSP integra o banco de dados com os objetos
+
