@@ -1,12 +1,6 @@
-<%-- 
-    Document   : cliente
-    Created on : 13/11/2019, 21:42:52
-    Author     : aluno
---%>
-
-<%@page import="java.util.List"%>
-<%@page import="entidades.Cliente"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="aux" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,52 +11,39 @@
     </head>
     <body>
         <h1>Cliente</h1>
-        <%
-            int id =0;
-            String nome="";
-            String telefone ="";
-            String cpf = "";
-            if (request.getAttribute("cliente")!=null){
-                Cliente ed = (Cliente) request.getAttribute("cliente");
-                id = ed.getId();
-                nome = ed.getNome();
-                telefone = ed.getTelefone();
-                cpf = ed.getCpf();
-            }
 
 
-        %>
-        
         <div class="container">
-            <form method="POST" action="./cliente">
-                
-                <input hidden class="form-control" name="id" type="text" required value="<%= id %>"/>
-            <div id="formulario" class="form-group">
-                <label id="labelNome" for="label" > Nome: </label>
-                <input class="form-control" name="nome" type="text" required value="<%= nome %>"/>
-            </div>
-            
-            <div id="formulario" class="form-group">
-                <label id="labelCPF" for="label"> CPF: </label>
-                <input class="form-control" name="cpf" type="text" value="<%= cpf %>" required/>
-            </div>
+            <form method="POST" action="./cliente_jstl">
 
-            
-            <div id="formulario" class="form-group">
-                <label id="labelTelefone" for="label"> Telefone: </label>
-                <input class="form-control" name="telefone" type="text" required value="<%= telefone %>"/>
-            </div>
+                <input hidden class="form-control" name="id" type="text" required value="${cliente.id}"/>
+                <div id="formulario" class="form-group">
+                    <label id="labelNome" for="label" > Nome: </label>
+                    <input class="form-control" name="nome" type="text" required value="${cliente.nome}"/>
+                </div>
 
-            <button id="salvar" class="btn btn-primary" type="submit">Enviar</button>
-                
-                
-        </form>
+                <div id="formulario" class="form-group">
+                    <label id="labelCPF" for="label"> CPF: </label>
+                    <%-- <input class="form-control" name="cpf" type="text" required value="${cliente.cpf}"/>--%>
+                    <aux:cpf classe="form-control" id="cpf" nome="cpf" valor="${cliente.cpf}"/> 
+                </div>
+
+
+                <div id="formulario" class="form-group">
+                    <label id="labelTelefone" for="label"> Telefone: </label>
+                    <input class="form-control" name="telefone" type="text" required value="${cliente.telefone}"/>
+                </div>
+
+                <button id="salvar" class="btn btn-primary" type="submit">Enviar</button>
+
+
+            </form>
         </div>
-        
+
         <div class="container">
             <table class="table">
                 <thead class="thead-dark">
-                    
+
                     <tr>
                         <th scope="col">Nome</th>
                         <th scope="col">CPF</th>
@@ -72,23 +53,20 @@
 
                 </thead>
                 <tbody  class="tbody-dark">
-                    <% List<Cliente> lista;
-                       lista = (List<Cliente>) request.getAttribute("lista");
-                    
-                %>
-                    <% for(Cliente c: lista){%>    
- 
-                <tr id="<%= c.getId() %>">
-                    <td ><%= c.getNome() %></td>
-                    <td><%= c.getCpf() %></td>
-                    <td><%= c.getTelefone() %></td>
-                    <td> <a href="cliente?excluir=<%= c.getId()%>"><button class="btn btn-danger">Excluir</button></a>
-                         <a href="cliente?editar=<%= c.getId()%>"><button class="btn btn-danger">Editar</button></a>
-                    </td>
-                    <%--<td> <a href="cliente?excluir=<%= c.getId()%>"><button class="btn btn-danger" onmouseover=document.getElementById("<%= c.getId()%>").>Excluir</button></a> </td>--%>
-                </tr>
+                    <c:forEach var="c" items="${lista}">
 
-                <% } %>
+
+                        <tr>
+                            <td>${c.nome}</td>
+                            <td>${c.cpf}</td>
+                            <td>${c.telefone}</td>
+                            <td> <a href="cliente_jstl?excluir=${c.id}"><button class="btn btn-danger">Excluir</button></a>
+                                <a href="cliente_jstl?editar=${c.id}"><button class="btn btn-danger">Editar</button></a>
+                            </td>
+                            <%--<td> <a href="cliente?excluir=<%= c.getId()%>"><button class="btn btn-danger" onmouseover=document.getElementById("<%= c.getId()%>").>Excluir</button></a> </td>--%>
+                        </tr>
+
+                    </c:forEach>
                 </tbody>
 
 

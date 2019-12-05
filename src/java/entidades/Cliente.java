@@ -29,10 +29,10 @@ public class Cliente {
     @Column(name="id")//Não obrigatório se o nome da variável foi o nome da coluna.
     @GeneratedValue(generator="seq_cliente", strategy = GenerationType.SEQUENCE)
     private int id;
-    @Column(name="descricao")
+    @Column(name="nome")
     private String nome;
     private String cpf;
-    @Column(name="telefoneo")
+    @Column(name="telefone")
     private String telefone;
     
     public int getId() {
