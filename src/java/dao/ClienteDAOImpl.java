@@ -5,8 +5,12 @@
  */
 package dao;
 
+import cdi.Auditavel;
+import cdi.DAOQualifier;
 import entidades.Cliente;
 import java.util.List;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,8 +21,12 @@ import javax.persistence.Query;
  * @author aluno
  */
 public class ClienteDAOImpl implements ClienteDAO{
+    @Inject
+    private EntityManagerFactory fabrica;
+    //private EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("projetoweb2PU");
+    @Inject
+    private Event<Cliente> evento;
     
-    private EntityManagerFactory fabrica = Persistence.createEntityManagerFactory("projetoweb2PU");
     public void save(Cliente cliente){
         EntityManager em = fabrica.createEntityManager();
         em.getTransaction().begin();
@@ -29,6 +37,7 @@ public class ClienteDAOImpl implements ClienteDAO{
         }
         em.getTransaction().commit();
         em.close();
+        evento.fire(cliente);
     }
     public void delete(Cliente cliente){
         EntityManager em = fabrica.createEntityManager();
